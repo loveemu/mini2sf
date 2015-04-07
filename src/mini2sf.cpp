@@ -8,7 +8,7 @@
 */
 
 #define APP_NAME	"rom2sf"
-#define APP_VER		"[2015-03-13]"
+#define APP_VER		"[2015-04-08]"
 #define APP_DESC	"Numbered mini2sf generator"
 #define APP_AUTHOR	"loveemu <http://github.com/loveemu/rom2sf>"
 
@@ -49,6 +49,7 @@ void printUsage(const char *cmd)
 {
 	const char *availableOptions[] = {
 		"--help", "Show this help",
+		"--psfby, --2sfby", "Set creator of 2SF",
 	};
 
 	printf("%s %s\n", APP_NAME, APP_VER);
@@ -81,6 +82,8 @@ int main(int argc, char **argv)
 	long lvalue;
 	char * strtol_endp;
 
+	char *psfby = NULL;
+
 	argi = 1;
 	while (argi < argc && argv[argi][0] == '-')
 	{
@@ -88,6 +91,15 @@ int main(int argc, char **argv)
 		{
 			printUsage(argv[0]);
 			return EXIT_SUCCESS;
+		}
+		else if (strcmp(argv[argi], "--psfby") == 0 || strcmp(argv[argi], "--2sfby") == 0) {
+			if (argi + 1 >= argc) {
+				fprintf(stderr, "Error: Too few arguments for \"%s\"\n", argv[argi]);
+				return EXIT_FAILURE;
+			}
+
+			psfby = argv[argi + 1];
+			argi++;
 		}
 		else
 		{
@@ -136,6 +148,10 @@ int main(int argc, char **argv)
 	for (uint32_t num = 0; num < count; num++) {
 		std::map<std::string, std::string> tags;
 		tags["_lib"] = libname;
+
+		if (psfby != NULL && strcmp(psfby, "") != 0) {
+			tags["snsfby"] = psfby;
+		}
 
 		char nds2sf_path[PATH_MAX];
 		sprintf(nds2sf_path, "%s-%04d.mini2sf", nds2sf_basename, num);
