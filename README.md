@@ -19,5 +19,5 @@ Syntax: `mini2sf <Base name> <Offset> <Size> <Count>`
 `--help`
   : Show help
 
-`--psfby`, `--2sfby`
-  : Set creator of 2SF
+`--psfby`, `--2sfby` [name]
+  : Set creator name of 2SF

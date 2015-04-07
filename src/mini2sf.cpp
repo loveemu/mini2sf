@@ -49,7 +49,7 @@ void printUsage(const char *cmd)
 {
 	const char *availableOptions[] = {
 		"--help", "Show this help",
-		"--psfby, --2sfby", "Set creator of 2SF",
+		"--psfby, --2sfby [name]", "Set creator name of 2SF",
 	};
 
 	printf("%s %s\n", APP_NAME, APP_VER);
