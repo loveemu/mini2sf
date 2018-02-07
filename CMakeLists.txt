@@ -50,7 +50,14 @@ set(SRCS
     src/nds2sf.cpp
 )
 
-add_executable(mini2sf ${SRCS})
+set(HDRS
+    src/mini2sf.h
+    src/nds2sf.h
+    src/cbyteio.h
+    src/cpath.h
+)
+
+add_executable(mini2sf ${SRCS} ${HDRS})
 
 if(ZLIB_FOUND)
     include_directories(${ZLIB_INCLUDE_DIRS})
